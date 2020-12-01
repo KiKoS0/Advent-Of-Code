@@ -8,21 +8,17 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\KiKoS\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\KiKoS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\KiKoS\\Desktop\\dotnet\\dotnet.csproj",
+      "projectUniqueName": "F:\\dotnet\\Advent-Of-Code\\dotnet.csproj",
       "projectName": "dotnet",
-      "projectPath": "C:\\Users\\KiKoS\\Desktop\\dotnet\\dotnet.csproj",
+      "projectPath": "F:\\dotnet\\Advent-Of-Code\\dotnet.csproj",
       "packagesPath": "C:\\Users\\KiKoS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\KiKoS\\Desktop\\dotnet\\obj\\",
+      "outputPath": "F:\\dotnet\\Advent-Of-Code\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\KiKoS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

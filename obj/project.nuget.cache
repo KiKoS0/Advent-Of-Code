@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oHIlF5DoP5awpjd0qVBQuavffIBodaq0wl1HbQKwGjMbjvL9dvGFCHXaOeNFmGxbEpcDZbu1G2noX39HaEV+Zw==",
+  "dgSpecHash": "aS1rlThgkUecRsHAHhZts1e69CA5fNflL7ZXkzOEFJXbgptCmihJDqiUmB0yeV5YFfKjhlViFnqf2CUND7FbSA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\KiKoS\\Desktop\\dotnet\\dotnet.csproj",
+  "projectFilePath": "F:\\dotnet\\Advent-Of-Code\\dotnet.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
