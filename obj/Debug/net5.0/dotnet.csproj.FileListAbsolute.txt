@@ -21,7 +21,6 @@ F:\dotnet\Advent-Of-Code\bin\Debug\net5.0\dotnet.runtimeconfig.dev.json
 F:\dotnet\Advent-Of-Code\bin\Debug\net5.0\dotnet.dll
 F:\dotnet\Advent-Of-Code\bin\Debug\net5.0\ref\dotnet.dll
 F:\dotnet\Advent-Of-Code\bin\Debug\net5.0\dotnet.pdb
-F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.csprojAssemblyReference.cache
 F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.GeneratedMSBuildEditorConfig.editorconfig
 F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.AssemblyInfoInputs.cache
 F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.AssemblyInfo.cs
@@ -30,3 +29,4 @@ F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.dll
 F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\ref\dotnet.dll
 F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.pdb
 F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.genruntimeconfig.cache
+F:\dotnet\Advent-Of-Code\obj\Debug\net5.0\dotnet.csprojAssemblyReference.cache
