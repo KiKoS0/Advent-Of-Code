@@ -7,6 +7,10 @@ using static Util.Utility;
 
 namespace Advent
 {
+    /// <summary>
+    /// Advent of code 2020 solutions https://adventofcode.com/
+    /// Puzzle inputs are compressed(bzip) and base64 encoded 
+    /// </summary>
     public static class Advent2020
     {
         public static void Day1()
