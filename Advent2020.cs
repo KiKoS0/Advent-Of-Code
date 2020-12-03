@@ -54,5 +54,23 @@ namespace Advent
             }
             Console.WriteLine($"Result: {sum}");
         }
+
+        public static void Day3()
+        {
+            IList<string> data = (IList<string>)DecodeBase64AsStr(
+                "QlpoOTFBWSZTWe2JJO4AENVwAH/+YAAIAWANH13Va7jQHWtGgBQBWjwAAAAAAABISZU/VT9Qmmg09EIiJqgGp+UFJ6pqepgJPVJUUYACmmRiYmIIVICYI09UPYQRhCBUIJQWJQFjKE7t0uG4Qb8dv8+wvGSRYw1jay6oIEALI8IEqDilFWX20NEmDAIRDNkx3rYkALHhC7gUo3gs7zbpGth4/Pq6mPHpHutAGtkogKgiSEFgwY6gvhXZamx359mgGjQHwyJiCBw9nhyoQCQpgSAn1ncvR2KKQW0iIFyIP7vi+BcjyeqlblHxosbuT5lVLjtJS3d3RGWNehv4ZUiROPJOKC6d4TNByxvJtHcHMm9VJxJxGuZhDGsIdKWlLSld7Ks9FhViwSkaWCUKVn0S6eirgvOd3uV8KwCgBLhXkXSWVgJNwX5vwxCAgwI8K7mRCiBOWsruxliaRkJ901+KUYeEbfSwOV8eXbrzk5a+EKmbADRWYujVCKBBjTTGUPHKTeKXlxB+LIb9cXL9uq4Jd6PinE4B/d+S6F0s8twd9fomWUgBIDg6PLu2cvAlYeE1ttMCg7tqKi7iS9LVuvhWld8wWl/JelmHI4mmIErQlCojBMsSZSgmAFNTtqXSkLuxXTVCEi2ty5VtRG20JleRVcq7/YrRQm2Lt0VvJSXhxu2XQu5Fz3INe2RjfqRnufWc8P363/ZO0AgBAkCRbs+3nGCucajm3LWJ4uicChG0tkMeZrkfl+Yh5rZEx1NcQi/RSV8kiQjWNNCKdTzzEr7Ovu2byMphdRa07Kppp5IMzkKH3XARjeEPfZmZwTUvHajrTy6dCQJev2OhB3jjcy5CsPPr4Ws2djjfZ+iaOY4V9b4JlAZnbvC4xWLInVoYlCnHUTCyiBhlMSJAhFkYX1ol9ZQVsjE9FwqF64UHwSYuHmyWcbmRS28xqLrgiJ3NJYlmNEVD+iwqWz5sSlg8mOL22vddXnspPvIypJE0G5l2Vg8FNu7xS46xs1poQpmSy20CChW2Dacciba0u6dCz3deZQCQLmNQQjgoVAFbCRf6JcFZQACNabfSII9IF3IBg0AoMS43SCgrwWClt/OsiYLo1B712XXooS03RUo7F/" +
+                "KWKIbTpWwYN+x+64LO87mUUkKFxoUbQHreWvbsX0pOsMiZQmM9HGwEPx1EHWMLXTjzB4EixFbEMEnvrKNOONlBQUcdcOHCsECBWPBP4YQspNtMRvItLoBB02NCExfNddH5yc9HVQV5OXzv27XdedbFVmeSAIxsECR0SaBGXE5c1R/NaiAX1sEjGqeleRNeOuZiawutICPzdWNYNAgEeXPvXiRQNDT8yfBVhSBRo7E4JwTjoIJgirGeq5CsLOWsIAYOhCRjSam/3mJYVzJDkaIww4Rnsdfm+FL0ZQPXZXPJKCkvDh3r7t5LsQJjEgI0yNPBJoISxPUUIB4eybcQN150ufb2ksZOidyVYulYIGNHRi0NiirW0BO75eNvjmOMMYEGeWr2KbToJY2TdmMy2HRoxuxNLjZmvC0aVCFD0uXVAjRgRlulBLW61uxNY1oleZBR3GGCaEvrdLmxRa2cfh2xsBVSpVSKAAoxEZNjGQiJBmKNQpCGoYKQaDZJDVCWRGiQaKJGYlG/5cRnuuJZind0c3TJSiXddhNAY2TZNy5TTm5nd0QM5xokowTQSMzEWSI3du3d2hEzd3JvnrzwUhgho7r3fb3xgR7txvjre9wLu7O67b3bilLJpNMR7q4jNFd1yZKJJhJg05xIV3dmJLu4kTu4akNgic5V3V0bFEzJA2uTul3ad3nJmDYyUWSY865cDTOG6Xz3ZloQkTPOxc4kcumDuu7undu3J2nXFDSUJmSC53dwMRMSN10dCTEnXcXDua65dhzt3bkhudjTTSFHK7nSFzlc7u5opMpYMiS7rt3VcYK5xMp3XC3dcIzC66OTSIhCCIGDGMaTu5ju6JANBEJqEyTIU13F1zclOba1tcyaMyUQWTDQhgkEmkglEawyWk2kMV3XJc5JBs+HGKKJo3u6ICjYxEi5ddddBDu5BnJ1dF3E7s8ri83GFISmQE3nctyMkG85mEaXduAJdOzRPlzNgMHnJOGOhiZgcM7dKJndyEF3XZJEZM3dxnddLurkwRGd0cIDEgSAmu7cvhcIRGme7dzzvXIYXc7slMjlznOXAYK5c7uRBTTMQkijGQOXO6ra2uiTZNrzWu2m5XlgtFJslaITYrGsmCphGAjG1l89dKLJqxtk2C0axRrRbaNi3u6iq5W5VGsaDWxaxsaI2xttzkWkqmBRtBijRRbGNBo2MWsUWSo3lbmqixoNsbbGqNSbXluajJUEVtzbmoqxRGgixtFn+F3JFOFCQ7Ykk7g="
+                , '\n');
+            long HowManyTrees(int down, int right)
+            {
+                long trees = 0;
+                for (int i = down, j = right; i < data.Count; i += down, j = (j + right) % data[0].Length)
+                    trees += data[i][j] == '#' ? 1 : 0;
+                return trees;
+            }
+            var result = (new[] { (1, 1), (1, 3), (1, 5), (1, 7), (2, 1) })
+                .Aggregate((long)1, (acc, next) => acc * HowManyTrees(next.Item1, next.Item2));
+            Console.WriteLine($"Result: {result}");
+        }
     }
 }
