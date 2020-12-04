@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static Util.Utility;
 
@@ -71,6 +72,50 @@ namespace Advent
             var result = (new[] { (1, 1), (1, 3), (1, 5), (1, 7), (2, 1) })
                 .Aggregate((long)1, (acc, next) => acc * HowManyTrees(next.Item1, next.Item2));
             Console.WriteLine($"Result: {result}");
+        }
+        public static void Day4()
+        {
+            var data_b64 = "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";
+            IList<string> data = (IList<string>)DecodeBase64AsStr(data_b64, '\n');
+            if (data.Last() != "") data.Add("");
+            int line = 0, valid_fields = 0, valid_pass = 0;
+            var hasCid = false;
+            while (line < data.Count)
+            {
+                if (string.IsNullOrWhiteSpace(data[line]))
+                {
+                    if (valid_fields == 8 || (valid_fields == 7 && !hasCid)) ++valid_pass;
+                    line++; valid_fields = 0; hasCid = false; continue;
+                }
+                bool CheckField(string str, out bool isCid)
+                {
+                    bool IsValidDigit(string str, int len, int lower, int upper) =>
+                        str.Length == len &&
+                        int.TryParse(str, out int res) &&
+                        res >= lower &&
+                        res <= upper;
+                    isCid = false;
+                    var temp = str.Split(':');
+                    var (id, val) = (temp[0], temp[1]);
+                    return (id, val.Length > 1 ? val[^2..] : val) switch
+                    {
+                        ("hgt", "cm") => IsValidDigit(val[..^2], 3, 150, 193),
+                        ("hgt", "in") => IsValidDigit(val[..^2], 2, 59, 76),
+                        ("cid", _) => isCid = true,
+                        ("hcl", _) => (new Regex(@"^#(\d|[a-f]){6}$")).IsMatch(val),
+                        ("ecl", _) => (new Regex(@"^amb|blu|brn|gry|grn|hzl|oth$")).IsMatch(val),
+                        ("pid", _) => (new Regex(@"^\d{9}$")).IsMatch(val),
+                        ("byr", _) => IsValidDigit(val, 4, 1920, 2002),
+                        ("iyr", _) => IsValidDigit(val, 4, 2010, 2020),
+                        ("eyr", _) => IsValidDigit(val, 4, 2020, 2030),
+                        (_, _) => false,
+                    };
+                }
+                var (h, cid) = data[line].Split().Aggregate((valid_fields, hasCid), (acc, next) =>
+                    (CheckField(next, out bool isCid) ? ++acc.valid_fields : acc.valid_fields, acc.hasCid | isCid));
+                valid_fields = h; ++line; hasCid = cid;
+            }
+            Console.WriteLine($"Result {valid_pass}");
         }
     }
 }
