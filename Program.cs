@@ -9,3 +9,4 @@ Advent.Advent2020.Day3();
 Advent.Advent2020.Day4();
 Advent.Advent2020.Day5();
 Advent.Advent2020.Day6();
+Advent.Advent2020.Day7();
