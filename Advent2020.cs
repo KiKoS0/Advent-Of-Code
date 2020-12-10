@@ -309,7 +309,38 @@ namespace Advent
                 }
             }
         }
+        public static void Day10()
+        {
+            List<int> data = (List<int>)DecodeBase64(Base64Db[9], '\n');
 
-
+            void Part1(List<int> data)
+            {
+                data.Sort();
+                int dif1 = 0;
+                int dif3 = 1;
+                if (data[0] > 1) dif3++; else dif1++;
+                for (var i = 0; i < data.Count - 1; ++i)
+                {
+                    if (data[i + 1] - data[i] == 1) dif3++;
+                    else dif1++;
+                }
+                Console.WriteLine($"Result Part1: {dif1 * dif3}");
+            }
+            void Part2(List<int> data)
+            {
+                data.Add(data.Max()+3); data.Insert(0, 0); data.Sort();
+                long Find(long val,IList<int> data,Dictionary<long, long> mem)
+                {
+                    if (!data.Contains((int)val)) return 0;
+                    if (val == data[data.Count-1]) return 1;
+                    if (!mem.ContainsKey(val))
+                        mem[val] = Find(val + 1, data, mem) + Find(val + 2, data, mem) + Find(val + 3, data, mem);
+                    return mem[val];
+                }
+                Console.WriteLine($"Result Part2: {Find(0, data, new Dictionary<long, long>())}");
+            }
+            Part1(new List<int>(data));
+            Part2(new List<int>(data));
+        }
     }
 }
