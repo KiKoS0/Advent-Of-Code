@@ -328,11 +328,11 @@ namespace Advent
             }
             void Part2(List<int> data)
             {
-                data.Add(data.Max()+3); data.Insert(0, 0); data.Sort();
-                long Find(long val,IList<int> data,Dictionary<long, long> mem)
+                data.Add(data.Max() + 3); data.Insert(0, 0); data.Sort();
+                long Find(long val, IList<int> data, Dictionary<long, long> mem)
                 {
                     if (!data.Contains((int)val)) return 0;
-                    if (val == data[data.Count-1]) return 1;
+                    if (val == data[data.Count - 1]) return 1;
                     if (!mem.ContainsKey(val))
                         mem[val] = Find(val + 1, data, mem) + Find(val + 2, data, mem) + Find(val + 3, data, mem);
                     return mem[val];
@@ -341,6 +341,61 @@ namespace Advent
             }
             Part1(new List<int>(data));
             Part2(new List<int>(data));
+        }
+        public static void Day11()
+        {
+            List<string> data = (List<string>)DecodeBase64AsStr(Base64Db[10], '\n');
+            bool DirectionOccupied(List<string> data, int i, int j, int dxi, int dxj, int depth)
+            {
+                for (int s = i + dxi, k = j + dxj, d = 0;
+                    s < data.Count && s >= 0 && k < data[s].Length && k >= 0 && d < depth;
+                    s += dxi, k += dxj, d++)
+                {
+                    if (data[s][k] == '#') return true;
+                    else if (data[s][k] == 'L') return false;
+                }
+                return false;
+            }
+            int Occupied(List<string> data, int i, int j, int depth) =>
+                (new[] { (-1, 0), (0, -1), (-1, -1), (0, 1), (1, 0), (1, 1), (1, -1), (-1, 1) })
+                    .Aggregate(0, (a, n) => a += DirectionOccupied(data, i, j, n.Item1, n.Item2, depth) ? 1 : 0);
+            List<string> NextState(List<string> data,int rule,int depth)
+            {
+                List<string> next = new List<string>(data);
+                for (var i = 0; i < data.Count; ++i)
+                {
+                    for (var j = 0; j < data[i].Length; j++)
+                    {
+                        int occ = Occupied(data, i, j,depth);
+                        if (occ > rule && data[i][j] == '#') next[i] = next[i].ReplaceAtIndex(j, 'L');
+                        else if (occ == 0 && data[i][j] == 'L') next[i] = next[i].ReplaceAtIndex(j, '#');
+                    }
+                }
+                return next;
+            }
+            int Seats(List<string> data,int rule,int depth)
+            {
+                bool g = true;
+                var cpy = new List<string>(data);
+                while (g)
+                {
+                    List<string> next = NextState(cpy,rule,depth);
+                    if (Check(next, cpy)) g = false;
+                    else cpy = next;
+                }
+                return cpy.Aggregate(0, (acc, next) => acc += next.Count(x => x == '#'));
+            }
+            bool Check(IList<string> d1, IList<string> d2)
+            {
+                for (var i = 0; i < d1.Count; ++i)
+                    if (d1[i] != d2[i]) return false;
+                return true;
+            }
+            var res = (new[] { (3, 1), (4, int.MaxValue) })
+                .Select(x => Seats(data, x.Item1, x.Item2))
+                .ToList();
+            Console.WriteLine($"Result Part1: {res[0]}");
+            Console.WriteLine($"Result Part2: {res[1]}");
         }
     }
 }

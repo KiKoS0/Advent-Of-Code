@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using ICSharpCode.SharpZipLib.BZip2;
+using System.Text;
 
 namespace Util
 {
@@ -39,6 +40,13 @@ namespace Util
         {
             var data = Decompress( Convert.FromBase64String(encoded));
             return data.Split(separator).ToList();
+        }
+
+        public static string ReplaceAtIndex(this string text, int index, char c)
+        {
+            var stringBuilder = new StringBuilder(text);
+            stringBuilder[index] = c;
+            return stringBuilder.ToString();
         }
 
 
