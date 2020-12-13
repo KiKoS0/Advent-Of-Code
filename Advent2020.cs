@@ -359,27 +359,27 @@ namespace Advent
             int Occupied(List<string> data, int i, int j, int depth) =>
                 (new[] { (-1, 0), (0, -1), (-1, -1), (0, 1), (1, 0), (1, 1), (1, -1), (-1, 1) })
                     .Aggregate(0, (a, n) => a += DirectionOccupied(data, i, j, n.Item1, n.Item2, depth) ? 1 : 0);
-            List<string> NextState(List<string> data,int rule,int depth)
+            List<string> NextState(List<string> data, int rule, int depth)
             {
                 List<string> next = new List<string>(data);
                 for (var i = 0; i < data.Count; ++i)
                 {
                     for (var j = 0; j < data[i].Length; j++)
                     {
-                        int occ = Occupied(data, i, j,depth);
+                        int occ = Occupied(data, i, j, depth);
                         if (occ > rule && data[i][j] == '#') next[i] = next[i].ReplaceAtIndex(j, 'L');
                         else if (occ == 0 && data[i][j] == 'L') next[i] = next[i].ReplaceAtIndex(j, '#');
                     }
                 }
                 return next;
             }
-            int Seats(List<string> data,int rule,int depth)
+            int Seats(List<string> data, int rule, int depth)
             {
                 bool g = true;
                 var cpy = new List<string>(data);
                 while (g)
                 {
-                    List<string> next = NextState(cpy,rule,depth);
+                    List<string> next = NextState(cpy, rule, depth);
                     if (Check(next, cpy)) g = false;
                     else cpy = next;
                 }
@@ -396,6 +396,57 @@ namespace Advent
                 .ToList();
             Console.WriteLine($"Result Part1: {res[0]}");
             Console.WriteLine($"Result Part2: {res[1]}");
+        }
+        public static void Day12()
+        {
+            List<string> data = (List<string>)DecodeBase64AsStr(Base64Db[11], '\n');
+            var dir = new Dictionary<string, int> { { "S", 180 }, { "N", 0 }, { "W", 270 }, { "E", 90 } };
+            var dir_inv = new Dictionary<int, string> { { 180, "S" }, { 0, "N" }, { 270, "W" }, { 90, "E" } };
+
+            int ManhattanDistance(
+                List<string> data,
+                Dictionary<string, int> waypoint,
+                bool relative = true)
+            {
+                var ship = new Dictionary<string, int> { { "S", 0 }, { "N", 0 }, { "W", 0 }, { "E", 0 } };
+                foreach (var i in data)
+                {
+                    if ((new Regex(@"^S|N|W|E")).IsMatch(i))
+                    {
+                        if(!relative)
+                            ship[i[0..1]] += int.Parse(i[1..]);
+                        else
+                            waypoint[i[0..1]] += int.Parse(i[1..]);
+                    }
+                    else if (i[0] == 'F')
+                        foreach (var k in ship)
+                            ship[k.Key] += int.Parse(i[1..]) * waypoint[k.Key];
+                    else
+                    {
+                        var cpy = new Dictionary<string, int>(waypoint);
+                        foreach (var k in cpy)
+                            waypoint[k.Key] = cpy[dir_inv[(360 + int.Parse(i[1..]) * (i[0] == 'L' ? 1 : -1) + dir[k.Key]) % 360]];
+                    }
+                }
+                return Math.Abs(ship["S"] - ship["N"]) + Math.Abs(ship["E"] - ship["W"]);
+
+            }
+            void Part(bool part1=true)
+            {
+                if (part1)
+                {
+                    var s = ManhattanDistance(data,
+                        new Dictionary<string, int> { { "S", 0 }, { "N", 0 }, { "W", 0 }, { "E", 1 } },
+                        false);
+                    Console.WriteLine($"Result Part1: {s}");
+                }else
+                {
+                    var s = ManhattanDistance(data,
+                        new Dictionary<string, int> { { "S", 0 }, { "N", 1 }, { "W", 0 }, { "E", 10 } });
+                    Console.WriteLine($"Result Part2: {s}");
+                }
+            }
+            Part(); Part(false);
         }
     }
 }
