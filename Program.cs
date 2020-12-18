@@ -15,3 +15,5 @@ Advent.Advent2020.Day9();
 Advent.Advent2020.Day10();
 Advent.Advent2020.Day11();
 Advent.Advent2020.Day12();
+Advent.Advent2020.Day13();
+

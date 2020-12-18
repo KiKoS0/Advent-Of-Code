@@ -448,5 +448,47 @@ namespace Advent
             }
             Part(); Part(false);
         }
+        public static void Day13()
+        {
+            List<string> data = (List<string>)DecodeBase64AsStr(Base64Db[12], '\n');
+            int timestamp = int.Parse(data[0]);
+            int res = 0;
+            int f = 0;
+            List<(int,int)> buses = (from seg in data[1].Split(',')
+                          where f++>=0 && int.TryParse(seg, out res) 
+                          select (res,res-f+1%res)).ToList();
+            var m = int.MaxValue;
+            var s = 0;
+            foreach(var b in buses)
+            {
+                var p = (timestamp / b.Item1 + 1) * b.Item1 - timestamp;
+                if (p < m)
+                {
+                    s = b.Item1;
+                    m = p;
+                }
+            }
+            Console.WriteLine($"Result Part1: {s * m}");
+
+            long ChineseRemainder(List<(int,int)> buses)
+            {
+                long ModularMultiplicativeInverse(long a, long mod)
+                {
+                    for (long x = 1; x < mod; x++)
+                        if (((a % mod) * x) % mod == 1)
+                            return x;
+                    return 1;
+                }
+                long prod = buses.Aggregate((long)1, (acc, next) => acc *= next.Item1);
+                long res = 0;
+                foreach (var b in buses)
+                {
+                    long n = prod / b.Item1;
+                    res += n * ModularMultiplicativeInverse(n, b.Item1) * b.Item2;
+                }
+                return res % prod;
+            }
+            Console.WriteLine($"Result Part2: {ChineseRemainder(buses)}");
+        }
     }
 }
