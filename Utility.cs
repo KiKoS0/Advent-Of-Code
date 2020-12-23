@@ -38,7 +38,7 @@ namespace Util
 
         public static IEnumerable<String> DecodeBase64AsStr(string encoded, char separator)
         {
-            var data = Decompress( Convert.FromBase64String(encoded));
+            var data = Decompress(Convert.FromBase64String(encoded));
             return data.Split(separator).ToList();
         }
 
@@ -72,5 +72,8 @@ namespace Util
             var t = reader.ReadToEnd();
             return t;
         }
+
+        public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> self)
+                => self.Select((item, index) => (item, index));
     }
 }

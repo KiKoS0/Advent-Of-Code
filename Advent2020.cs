@@ -413,7 +413,7 @@ namespace Advent
                 {
                     if ((new Regex(@"^S|N|W|E")).IsMatch(i))
                     {
-                        if(!relative)
+                        if (!relative)
                             ship[i[0..1]] += int.Parse(i[1..]);
                         else
                             waypoint[i[0..1]] += int.Parse(i[1..]);
@@ -431,7 +431,7 @@ namespace Advent
                 return Math.Abs(ship["S"] - ship["N"]) + Math.Abs(ship["E"] - ship["W"]);
 
             }
-            void Part(bool part1=true)
+            void Part(bool part1 = true)
             {
                 if (part1)
                 {
@@ -439,7 +439,8 @@ namespace Advent
                         new Dictionary<string, int> { { "S", 0 }, { "N", 0 }, { "W", 0 }, { "E", 1 } },
                         false);
                     Console.WriteLine($"Result Part1: {s}");
-                }else
+                }
+                else
                 {
                     var s = ManhattanDistance(data,
                         new Dictionary<string, int> { { "S", 0 }, { "N", 1 }, { "W", 0 }, { "E", 10 } });
@@ -454,12 +455,12 @@ namespace Advent
             int timestamp = int.Parse(data[0]);
             int res = 0;
             int f = 0;
-            List<(int,int)> buses = (from seg in data[1].Split(',')
-                          where f++>=0 && int.TryParse(seg, out res) 
-                          select (res,res-f+1%res)).ToList();
+            List<(int, int)> buses = (from seg in data[1].Split(',')
+                                      where f++ >= 0 && int.TryParse(seg, out res)
+                                      select (res, res - f + 1 % res)).ToList();
             var m = int.MaxValue;
             var s = 0;
-            foreach(var b in buses)
+            foreach (var b in buses)
             {
                 var p = (timestamp / b.Item1 + 1) * b.Item1 - timestamp;
                 if (p < m)
@@ -470,7 +471,7 @@ namespace Advent
             }
             Console.WriteLine($"Result Part1: {s * m}");
 
-            long ChineseRemainder(List<(int,int)> buses)
+            long ChineseRemainder(List<(int, int)> buses)
             {
                 long ModularMultiplicativeInverse(long a, long mod)
                 {
@@ -489,6 +490,28 @@ namespace Advent
                 return res % prod;
             }
             Console.WriteLine($"Result Part2: {ChineseRemainder(buses)}");
+        }
+        public static void Day15()
+        {
+            IList<int> data = (IList<int>)DecodeBase64(Base64Db[13], ',');
+            IDictionary<int, int> mem = new Dictionary<int, int>();
+            int last = -1;
+            int res1 = 0;
+            foreach (var (e, i) in data.WithIndex())
+            {
+                mem[e] = i + 1; last = e;
+            }
+            mem.Remove(last);
+            int turn = mem.Count + 1;
+            while (turn < 30000000)
+            {
+                int newVal = !mem.ContainsKey(last) ? 0 : turn - mem[last];
+                mem[last] = turn++;
+                last = newVal;
+                if (turn == 2020) res1 = last;
+            }
+            Console.WriteLine($"Result Part1: {res1}");
+            Console.WriteLine($"Result Part2: {last}");
         }
     }
 }
