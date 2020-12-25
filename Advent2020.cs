@@ -513,5 +513,55 @@ namespace Advent
             Console.WriteLine($"Result Part1: {res1}");
             Console.WriteLine($"Result Part2: {last}");
         }
+        public static void Day16()
+        {
+            IList<string> data = (IList<string>)DecodeBase64AsStr(Base64Db[14], '\n');
+            IDictionary<string, IList<(int, int)>> rules = new Dictionary<string, IList<(int, int)>>();
+            IList<string> fields = new List<string>();
+            foreach (var i in data.Take(20))
+            {
+                var mtch = (new Regex(@"((\s*\w+)+):\s+(\d+)\-(\d+)\s+or\s+(\d+)\-(\d+)")).Match(i);
+                var lst = new[] {
+                    (int.Parse(mtch.Groups[3].Value),int.Parse(mtch.Groups[4].Value)),
+                    (int.Parse(mtch.Groups[5].Value),int.Parse(mtch.Groups[6].Value))
+                }.ToList();
+                rules[mtch.Groups[1].Value] = lst;
+                fields.Add(mtch.Groups[1].Value);
+            }
+            var myTicket = data[22].Split(',').Select(int.Parse).ToList();
+            var nearby = data.Skip(25).ToList();
+            var res = nearby.Select(x => x.Split(',').Select(int.Parse))
+                .Select(
+                    values => values.Aggregate(0, (acc, i) => acc += rules.All(v => v.Value.All(x => i < x.Item1 || i > x.Item2)) ? i : 0))
+                .Sum();
+
+            Console.WriteLine($"Result Part1: {res}");
+            var resLst = new List<HashSet<string>>();
+            for (var s = 0; s < 20; s++)
+                resLst.Add(new HashSet<string>());
+                
+            foreach (var i in nearby.Select(x => x.Split(',').Select(int.Parse))
+                    .Where(values => !values.Any(v => rules.All(rule => rule.Value.All(x => v < x.Item1 || v > x.Item2))))
+                    .Select(x => x.WithIndex()))
+                foreach (var (item, index) in i)
+                    foreach (var (k, v) in rules)
+                        if (v.All(x => item < x.Item1 || item > x.Item2))
+                            resLst[index].Add(k);
+            var indexedRes = resLst.WithIndex().ToList();
+            indexedRes.Sort((t1, t2) => t1.item.Count.CompareTo(t2.item.Count));
+            indexedRes.Reverse();
+            var departure = new List<int>();
+            foreach (var (set, index) in indexedRes)
+            {
+                var missing = rules.Keys.Where(x => !set.Contains(x)).First();
+                foreach (var s in resLst)
+                    if (s != set)
+                        s.Add(missing);
+                if(missing.Contains("departure"))
+                    departure.Add(index);
+            }
+            var res2 = departure.Aggregate((long)1, (acc, next) => acc*=myTicket[next]);
+            Console.WriteLine($"Result part2: {res2}");
+        }
     }
 }
